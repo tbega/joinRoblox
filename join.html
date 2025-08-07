@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Roblox Server Joiner</title>
+    <style>body{font-family:sans-serif;background-color:#1e1e1e;color:#fff;text-align:center;padding-top:50px;}h1{color:#00a2ff;}button{background-color:#00a2ff;color:white;border:none;padding:15px 30px;font-size:1.2em;font-weight:bold;border-radius:8px;cursor:pointer;transition:background-color 0.3s;}button:hover{background-color:#008ae6;}</style>
+</head>
+<body>
+    <h1>Server Joiner</h1>
+    <p>You are about to join a specific Roblox server.</p>
+    <button onclick="joinServer()">Click to Join Server</button>
+    <p id="info"></p>
+    <script>
+        const urlParams = new URLSearchParams(window.location.search);
+        const placeId = urlParams.get('placeId');
+        const jobId = urlParams.get('jobId');
+        const infoText = document.getElementById('info');
+        infoText.innerText = `Ready to join server for Place ID: ${placeId || 'N/A'}`;
+        function joinServer() {
+            if (placeId && jobId) {
+                Roblox.GameLauncher.joinGameInstance(placeId, jobId);
+                infoText.innerText = `Launching Game... Place: ${placeId}, Server: ${jobId}`;
+            } else {
+                infoText.innerText = "Error: Place ID or Job ID is missing from the URL.";
+            }
+        }
+    </script>
+</body>
+</html>
